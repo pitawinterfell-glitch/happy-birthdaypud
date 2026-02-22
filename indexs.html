@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 💖</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+/* 🎥 วิดีโอพื้นหลัง */
+#bgVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  filter: brightness(0.8) saturate(1.2);
+}
+
+/* Overlay ชมพูบาง ๆ */
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 150, 200, 0.25);
+  z-index: -1;
+}
+
+/* Title */
+h1 {
+  margin-top: 120px;
+  color: white;
+  text-shadow: 0 0 20px #ff99cc;
+}
+
+/* Button */
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  background: white;
+  color: #ff4da6;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  background: #ff4da6;
+  color: white;
+}
+
+/* Diary */
+.diary {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 85%;
+  max-width: 550px;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(255,105,180,0.6);
+  transition: 0.5s;
+  z-index: 1000;
+}
+
+.diary.show {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.diary-images {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.diary-images img {
+  width: 50%;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.diary-images img:hover {
+  transform: scale(1.05);
+}
+
+/* Fullscreen */
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.fullscreen img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 20px;
+}
+
+.closeBtn {
+  margin-top: 15px;
+  background: #ff4da6;
+  color: white;
+}
+
+/* Hearts */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10vh); opacity: 1; }
+  100% { transform: translateY(110vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎥 Background Video -->
+<video autoplay muted loop playsinline id="bgVideo">
+  <source src="large-cherry-blossom-tree.3840x2160.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<h1>Happy Birthday 🎂💖</h1>
+<button onclick="openDiary()">กดตรงนี้นะะ 💝</button>
+
+<audio id="bgmusic" loop>
+  <source src="Pano.mp3" type="audio/mpeg">
+</audio>
+
+<div class="diary" id="diaryBox">
+  <h2>ถึงพี่พัด 💕</h2>
+  <p>
+  สุขสันต์วันเกิดนะคนสวย 💖<br>
+  ขอให้ปีนี้เต็มไปด้วยความสุข<br>
+  และรอยยิ้มทุกวันเลยนะ ✨
+  </p>
+
+  <div class="diary-images">
+    <img src="pud1.jpg" onclick="showImage(this)">
+    <img src="pud2.jpg" onclick="showImage(this)">
+  </div>
+
+  <button class="closeBtn" onclick="closeDiary()">ปิดสมุด 📖</button>
+</div>
+
+<div class="fullscreen" id="fullscreen" onclick="closeImage()">
+  <img id="fullImg">
+</div>
+
+<script>
+function openDiary() {
+  document.getElementById("bgmusic").play();
+  document.getElementById("diaryBox").classList.add("show");
+}
+
+function closeDiary() {
+  document.getElementById("diaryBox").classList.remove("show");
+}
+
+function showImage(img) {
+  document.getElementById("fullscreen").style.display = "flex";
+  document.getElementById("fullImg").src = img.src;
+}
+
+function closeImage() {
+  document.getElementById("fullscreen").style.display = "none";
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
